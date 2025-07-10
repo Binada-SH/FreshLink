@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../../firebase'; // Adjust path based on your structure
+import { auth, db } from '../../firebase'; // Adjust path based on your structure
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -37,7 +37,7 @@ const Login = () => {
         <h1 className="text-3xl font-[jura] text-[#097a45] text-center">
           Welcome Back!
         </h1>
-        <h3 className="text-lg text-center text-gray-600">
+        <h3 className="text-lg text-center text-[#827f7f]">
           Login to your FreshLink account
         </h3>
 

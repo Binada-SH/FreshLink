@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Splash from './assets/Components/Splash/splash';
-import Register from './assets/Components/Register/register';
-import Login from './assets/Components/Login/login';
-import BuyerHome from './assets/Components/BuyerHome/buyerhome';
-import SellerHome from "./assets/Components/SellerHome/sellerhome";
+import Splash from './Components/Splash/Splash';
+import Register from './Components/Register/register';
+import Login from './Components/Login/login';
+import BuyerHome from './Components/BuyerHome/buyerhome';
+import SellerHome from './Components/SellerHome/sellerhome';
+import ProtectedRoute from './Components/Auth/ProtectedRoute';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -33,16 +36,33 @@ const App = () => {
 
   return (
     <Router>
-      <Routes>
-        {/* Redirect root path to /register */}
-        <Route path="/" element={<Navigate to="/register" replace />} />
+  <Routes>
+    {/* Redirect root path to /register */}
+    <Route path="/" element={<Navigate to="/register" replace />} />
 
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/buyer-home" element={<BuyerHome />} />
-        <Route path="/seller-home" element={<SellerHome />} />
-      </Routes>
-    </Router>
+    <Route path="/register" element={<Register />} />
+    <Route path="/login" element={<Login />} />
+
+    {/* Protected Routes */}
+    <Route
+      path="/buyer-home"
+      element={
+        <ProtectedRoute>
+          <BuyerHome />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="/seller-home"
+      element={
+        <ProtectedRoute>
+          <SellerHome />
+        </ProtectedRoute>
+      }
+    />
+  </Routes>
+</Router>
+
   );
 };
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from "../../../firebase";
+import { auth, db } from "../../firebase";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const navigate = useNavigate(); // ✅ FIXED
@@ -41,7 +42,7 @@ const Register = () => {
         <h1 className="text-3xl font-[jura] text-[#097a45] text-center">
           Let's Get You SetUP!
         </h1>
-        <h3 className="text-lg text-center text-gray-600">
+        <h3 className="text-lg text-center text-[#827f7f]">
           Please fill the form below to register
         </h3>
 
@@ -81,6 +82,16 @@ const Register = () => {
         >
           Register
         </button>
+        <div className="flex items-center gap-4 my-6">
+          <hr className="flex-grow border-t border-gray-300" />
+          <h6 className="text-[12px] text-[#827f7f] whitespace-nowrap">Already have an account</h6>
+          <hr className="flex-grow border-t border-gray-300" />
+        </div>
+        <div className="login">
+          <Link to="/login" className="flex items-center justify-center text-[13px] text-[#097a45] hover:underline">
+            Login
+          </Link>
+        </div>
       </div>
     </div>
   );
