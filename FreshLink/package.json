@@ -1,9 +1,11 @@
 {
+  "homepage": "https://binada-sh.github.io/FreshLink/",
   "name": "freshlink",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
