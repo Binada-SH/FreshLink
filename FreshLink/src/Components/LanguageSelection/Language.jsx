@@ -36,18 +36,25 @@ export const LanguageProvider = ({ children }) => {
 // 3. Language Selector Component
 export const LanguageSelector = ({ onLanguageSelected }) => {
   const { language, changeLanguage } = useLanguage(); // Use the language context
-  const [isChangingLanguage, setIsChangingLanguage] = useState(false); // New state for managing delay
+  const [isChangingLanguage, setIsChangingLanguage] = useState(false); // State for button disabling delay
+  const [isExiting, setIsExiting] = useState(false); // New state for exit animation
 
   const handleSelectLanguage = (lang) => {
-    setIsChangingLanguage(true); // Indicate that a language change is in progress
+    setIsChangingLanguage(true); // Disable buttons immediately
+    setIsExiting(true); // Start exit animation
+
+    // Delay for the language change to register and animation to start
     setTimeout(() => {
-      changeLanguage(lang);
-      // If a callback is provided, call it after selection
-      if (onLanguageSelected) {
-        onLanguageSelected(lang);
-      }
-      setIsChangingLanguage(false); // Reset the state after delay
-    }, 300); // 300ms delay for a noticeable pause
+      changeLanguage(lang); // Update the language context
+      // Delay for the exit animation to complete before navigating
+      setTimeout(() => {
+        if (onLanguageSelected) {
+          onLanguageSelected(lang); // Navigate to the next screen
+        }
+        setIsChangingLanguage(false); // Reset button state (though component will unmount)
+        setIsExiting(false); // Reset exit state (though component will unmount)
+      }, 500); // This delay should match the exit animation duration (e.g., duration-500)
+    }, 300); // Initial short delay for button click feedback
   };
 
   // Helper function to get text for the selector's own UI (always English)
@@ -61,7 +68,7 @@ export const LanguageSelector = ({ onLanguageSelected }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className={`min-h-screen flex items-center justify-center bg-white transition-all duration-500 ease-out ${isExiting ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}>
       <div className="w-full max-w-md p-8 bg-white rounded-lg flex flex-col gap-6">
         <h1 className="text-3xl font-[jura] text-[#097a45] text-center mb-2">
           {getSelectorText('title')}
